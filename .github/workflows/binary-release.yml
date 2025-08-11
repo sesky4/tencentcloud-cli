@@ -2,8 +2,8 @@ name: Build and Release with PyInstaller
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "*"
 
 jobs:
   build:
