@@ -30,7 +30,7 @@ jobs:
 
       - name: Run PyInstaller
         run: |
-          pyinstaller tccli/main.py -y -F --collect-all tccli --exclude-module tccli.examples --name tccli 
+          pyinstaller tccli/main.py -y -F --collect-all tccli --exclude-module tccli.examples --name tccli-${{ runner.os }} 
 
       - name: Package binary (Linux/macOS)
         if: runner.os != 'Windows'
