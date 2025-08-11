@@ -30,18 +30,23 @@ jobs:
 
       - name: Run PyInstaller
         run: |
-          pyinstaller tccli/main.py -y -F --collect-all tccli --exclude-module tccli.examples --name tccli-${{ runner.os }} 
+          pyinstaller tccli/main.py -y -F --collect-all tccli --exclude-module tccli.examples --name tccli 
 
       - name: Package binary (Linux/macOS)
-        if: runner.os != 'Windows'
+        if: runner.os == 'Linux'
         run: |
-          zip "dist/tccli-${{ runner.os }}.zip" "dist/tccli-${{ runner.os }}"
+          zip -j "dist/tccli-linux.zip" "dist/tccli"
+
+      - name: Package binary (Linux/macOS)
+        if: runner.os == 'macOS'
+        run: |
+          zip -j "dist/tccli-macos.zip" "dist/tccli"
 
       - name: Package binary (Windows)
         if: runner.os == 'Windows'
         run: |
           # 在 Windows 上使用 PowerShell 压缩
-          Compress-Archive -Path "dist\tccli-Windows.exe" -DestinationPath "dist\tccli-Windows.zip"
+          Compress-Archive -Path "dist\tccli.exe" -DestinationPath "dist\tccli-windows.zip"
         shell: powershell
 
       - name: Upload artifact
